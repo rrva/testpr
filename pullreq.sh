@@ -24,7 +24,9 @@ findNearestMakefileDir() {
 if [ ! -z "$commit" ]; then
     changed=( \
         $(git diff-tree --no-commit-id --name-only -r "$commit" \
-        | egrep "^src" | tr '\n' '\0' | xargs -0 dirname | sort | uniq ) \
+          | egrep "^src" | tr '\n' '\0' | xargs -I {} -0 dirname {} \
+          | sort | uniq \
+         ) \
     )
     makefiles=( \
         $(for x in "${changed[@]}"; do
