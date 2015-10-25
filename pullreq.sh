@@ -28,6 +28,7 @@ if [ ! -z "$commit" ]; then
         done | sort | uniq)
     )
     for m in "${makefiles[@]}"; do
+        make -C "$m" clean
         make -C "$m"
     done
 else
