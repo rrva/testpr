@@ -14,10 +14,10 @@ findNearestMakefileDir() {
     start=$(pwd)
     while [ "$x" != "$start" ] && [ "$x" != "." ] && [ "$x" != "/" ]; do
         if [[ -e "$x/Makefile" ]]; then
-            printf "%s\0" "$x"
+            printf "%s\n" "$x"
             break
         fi
-        x=$(dirname "$x");
+        x=$(dirname "$x")
     done
 }
 
@@ -33,7 +33,7 @@ if [ ! -z "$commit" ]; then
     )
     for m in "${makefiles[@]}"; do
         make -C "$m" clean
-        make -C "$m" 
+        make -C "$m"
     done
 else
     echo "Not a pull request build"
